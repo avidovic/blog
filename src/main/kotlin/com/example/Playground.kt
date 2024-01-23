@@ -1,5 +1,8 @@
 package com.example
 
+import com.example.blog.Article
+import com.example.blog.User
+
 /*
 Extensions are resolved statically
 Extensions do not actually modify the classes they extend. By defining an extension,
@@ -19,8 +22,6 @@ fun printClassName(s: Shape) {
     println(s.getName())  //will print Shape
 }
 
-//printClassName(Rectangle())
-
 class Example {
     fun printFunctionType() { println("Class method") }
 }
@@ -34,9 +35,13 @@ fun Example.printFunctionType() { println("Extension function") } //will never b
 
 fun Example.printFunctionType(i: Int) { println("Extension function #$i") } //has different signature
 
-//Example().printFunctionType()
-//Example().printFunctionType(1)
-
+//nullable receiver
+fun Any?.toString(): String {
+    if (this == null) return "null"
+    // After the null check, 'this' is autocast to a non-nullable type, so the toString() below
+    // resolves to the member function of the Any class
+    return toString()
+}
 
 fun main() {
 
@@ -45,5 +50,14 @@ fun main() {
     Example().printFunctionType()
 
     Example().printFunctionType(1)
+
+    println(null.toString())
+
+    println("sth".toString())
+
+    val author = User("loginn", "jana", "blah")
+    println(author.toString())
+
+    println(Article("naslov", "bomba", "najbolji clanak na svijetu", author).toString())
 
 }

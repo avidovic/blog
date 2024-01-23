@@ -26,7 +26,19 @@ class Article(
     var slug: String = title.toSlug(),
     var addedAt: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue var id: Long? = null
-)
+) {
+    override fun toString(): String {
+        return """Article: 
+                    title: $title
+                    headline: $headline
+                    author: ${author.firstname} ${author.lastname}
+                    added at: $addedAt
+                    content: $content
+                    slug: $slug
+        """.trimMargin()
+
+    }
+}
 
 @Entity
 class User(
